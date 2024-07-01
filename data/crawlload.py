@@ -12,7 +12,7 @@ openai_api_key=os.environ["OPENAI_API_KEY"]
 apify_api_key=os.environ["APIFY_API_TOKEN"]
 
 vstore = AstraDB(
-    embedding=OpenAIEmbeddings(),
+    embedding=OpenAIEmbeddings(model="text-embedding-3-large", dimensions=1024),
     collection_name="vattanac_chatbot",
     api_endpoint=api_endpoint,
     token=token,
@@ -21,8 +21,8 @@ apify = ApifyWrapper()
 
 text_splitter = RecursiveCharacterTextSplitter(
     # Set a really small chunk size, just to show.
-    chunk_size = 1000,
-    chunk_overlap  = 20,
+    chunk_size = 2048,
+    chunk_overlap  = 64,
     length_function = len,
     is_separator_regex = False,
 )
